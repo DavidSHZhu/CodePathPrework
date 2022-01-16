@@ -32,7 +32,7 @@ Here's a walkthrough of implemented user stories (basic version):
 https://imgur.com/a/ohazxj1
 
 Here is an updated walkthrough involving new features:
-<img src='https://imgur.com/a/02GdyLl' title='Video Walkthrough Advanced' width='' alt='Video Walkthrough advanced' />
+https://imgur.com/a/02GdyLl
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
