@@ -15,15 +15,19 @@ class SettingsViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBOutlet weak var tipPercentage1: UITextField!
+    @IBOutlet weak var tipPercentage2: UITextField!
+    @IBOutlet weak var tipPercentage3: UITextField!
+    
+    var changeTips: (([String?]) -> ())?
+    
+    // dummy function that exists only because changeTips has not been initialized yet.
+    func pass(dummy_var: [String?]) {
+        
     }
-    */
-
+    
+    @IBAction func changeTip2(_ sender: UITextField) {
+        (changeTips ?? pass)([tipPercentage1.text, tipPercentage2.text, tipPercentage3.text])
+    }
+    
 }
