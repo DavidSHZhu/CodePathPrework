@@ -18,11 +18,46 @@ class ViewController: UIViewController {
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var tipOptions: UISegmentedControl!
     
+    let billDefault = UserDefaults()
+    let lastOpenedDate = UserDefaults()
+    let defaultTips = UserDefaults()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Sets the title in the Navigation Bar
         self.title = "Tip Calculator"
+        
+        NotificationCenter.default.addObserver(forName: UIApplication.didEnterBackgroundNotification, object: nil, queue: nil) { (notification) in
+            self.lastOpenedDate.set(Date(), forKey: "LastOpened")
+        }
+        
+        if lastOpenedDate.value(forKey: "LastOpened") == nil {
+            return
+        }
+        
+        let current = Date()
+        let date_minutes = minutesBetweenDates(lastOpenedDate.value(forKey: "LastOpened") as! Date, current)
+        
+        if date_minutes <= 10.0 {
+            // Sets the bill amount to the previous bill amount when the app was last launched, if there is such a previous bill amount.
+            if let bill = billDefault.value(forKey: "bill") as? String {
+                billAmountTextField.text = bill
+            }
+            
+            /*
+            if let tips = defaultTips.value(forKey: "tipPercentages") as? [Double] {
+                tipPercentages = tips
+                let string_tips = tipPercentages.map{ (num: Double) -> String? in
+                    if let str = String?(num) ?? "0" {
+                        return str
+                    }
+                    return "0"
+                }
+                changeSegmentLabels(percentages: string_tips)
+            } */
+        }
+        
     }
 
     @IBAction func calculateTip(_ sender: Any) {
@@ -38,6 +73,15 @@ class ViewController: UIViewController {
         
         // Update Total Amount
         totalLabel.text = String(format: "$%.2f", total)
+        
+        // Saving the bill value into the default bill value
+        billDefault.set(billAmountTextField.text, forKey: "bill")
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let dvc = segue.destination as? SettingsViewController {
+            dvc.changeTips = changeSegmentLabels
+        }
     }
     
     func changeSegmentLabels(percentages: [String?]) {
@@ -49,11 +93,14 @@ class ViewController: UIViewController {
          }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let dvc = segue.destination as? SettingsViewController {
-            dvc.changeTips = changeSegmentLabels
-        }
-        
+    func minutesBetweenDates(_ oldDate: Date, _ newDate: Date) -> Double{
+
+        //get both times sinces refrenced date and divide by 60 to get minutes
+        let newDateMinutes = newDate.timeIntervalSinceReferenceDate/60
+        let oldDateMinutes = oldDate.timeIntervalSinceReferenceDate/60
+
+        //then return the difference
+        return newDateMinutes - oldDateMinutes
     }
 }
 
