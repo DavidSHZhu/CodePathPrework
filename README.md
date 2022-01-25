@@ -4,7 +4,7 @@
 
 Submitted by: **David Zhu**
 
-Time spent: **6** hours spent in total
+Time spent: **10** hours spent in total
 
 ## User Stories
 
@@ -24,6 +24,9 @@ The following **additional** features are implemented:
 
 - [ ] List anything else that you can get done to improve the app functionality!
 - [X] Allows customization of the three tip percentages.
+- [X] Remembers the custom tip percentages entered across app restarts (if <10mins)
+- [X] Utilizes stepper tool to track the number of people in your party.
+- [X] Calculates the amount each person has to pay equally to split the total bill (bill amount + tip)
 
 ## Video Walkthrough
 
@@ -39,11 +42,15 @@ Here is an updated walkthrough involving the ability to remember the previously 
 
 https://imgur.com/a/MEmdG7h
 
+Here is an updated walkthrough involving the ability to remember the previously changed tip percentages and to customize the party size:
+
+https://imgur.com/a/cmgdWDG
+
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+While building the app, I had difficulty implementing userDefaults. In addition, it took me quite a while to understand that "didEnterBackground" and similar functions are not functions that we would ever explicitly call, but rather functions that would fire whenever the appropriate action is triggered. This is the first time that I've ever coded in Swift, so I had to self-teach everything here in this project.
 
 ## License
 
